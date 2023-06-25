@@ -99,25 +99,25 @@ void setup(){
   // REGRA 2 - ALTURA MEDIO E PESO ALTO = LED "ALTO"
   FuzzyRuleAntecedent *altura_medioAndpeso_alto = new FuzzyRuleAntecedent();
   altura_medioAndpeso_alto->joinWithAND(alturaMedio, pesoAlto);
-  FuzzyRuleConsequent *led_alto = new FuzzyRuleConsequent();
-  led_alto->addOutput(ledAlto);
-  FuzzyRule *fuzzyRule2 = new FuzzyRule(2, altura_medioAndpeso_alto, led_alto);
+  FuzzyRuleConsequent *led_alto2 = new FuzzyRuleConsequent();
+  led_alto2->addOutput(ledAlto);
+  FuzzyRule *fuzzyRule2 = new FuzzyRule(2, altura_medioAndpeso_alto, led_alto2);
   fuzzy->addFuzzyRule(fuzzyRule2);
 
   // REGRA 3 - ALTURA MEDIO E PESO ALTO = LED "ALTO"
   FuzzyRuleAntecedent *altura_altoAndpeso_medio = new FuzzyRuleAntecedent();
   altura_altoAndpeso_medio->joinWithAND(alturaAlto, pesoMedio);
-  FuzzyRuleConsequent *led_alto = new FuzzyRuleConsequent();
-  led_alto->addOutput(ledAlto);
-  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, altura_altoAndpeso_medio, led_alto);
+  FuzzyRuleConsequent *led_alto3 = new FuzzyRuleConsequent();
+  led_alto3->addOutput(ledAlto);
+  FuzzyRule *fuzzyRule3 = new FuzzyRule(3, altura_altoAndpeso_medio, led_alto3);
   fuzzy->addFuzzyRule(fuzzyRule3);
 
   // REGRA 4 - ALTURA MEDIO E PESO ALTO = LED "ALTO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_alto = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_alto->joinWithAND(alturaBaixo, pesoAlto);
-  FuzzyRuleConsequent *led_alto = new FuzzyRuleConsequent();
-  led_alto->addOutput(ledAlto);
-  FuzzyRule *fuzzyRule4 = new FuzzyRule(4, altura_baixoAndpeso_alto, led_alto);
+  FuzzyRuleConsequent *led_alto4 = new FuzzyRuleConsequent();
+  led_alto4->addOutput(ledAlto);
+  FuzzyRule *fuzzyRule4 = new FuzzyRule(4, altura_baixoAndpeso_alto, led_alto4);
   fuzzy->addFuzzyRule(fuzzyRule4);
  
   // REGRA 5 - ALTURA MEDIO E PESO MEDIO = LED "MEDIO"
@@ -131,17 +131,17 @@ void setup(){
   // REGRA 6 - ALTURA BAIXO E PESO MEDIO = LED "MEDIO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_medio = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_medio->joinWithAND(alturaBaixo, pesoMedio);
-  FuzzyRuleConsequent *led_medio = new FuzzyRuleConsequent();
-  led_medio->addOutput(ledMedio);
-  FuzzyRule *fuzzyRule6 = new FuzzyRule(6, altura_baixoAndpeso_medio, led_medio);
+  FuzzyRuleConsequent *led_medio2 = new FuzzyRuleConsequent();
+  led_medio2->addOutput(ledMedio);
+  FuzzyRule *fuzzyRule6 = new FuzzyRule(6, altura_baixoAndpeso_medio, led_medio2);
   fuzzy->addFuzzyRule(fuzzyRule6);
   
   // REGRA 7 - ALTURA ALTO E PESO BAIXO = LED "MEDIO"
   FuzzyRuleAntecedent *altura_altoAndpeso_baixo = new FuzzyRuleAntecedent();
   altura_altoAndpeso_baixo->joinWithAND(alturaAlto, pesoBaixo);
-  FuzzyRuleConsequent *led_medio = new FuzzyRuleConsequent();
-  led_medio->addOutput(ledMedio);
-  FuzzyRule *fuzzyRule7 = new FuzzyRule(7, altura_altoAndpeso_baixo, led_medio);
+  FuzzyRuleConsequent *led_medio3 = new FuzzyRuleConsequent();
+  led_medio3->addOutput(ledMedio);
+  FuzzyRule *fuzzyRule7 = new FuzzyRule(7, altura_altoAndpeso_baixo, led_medio3);
   fuzzy->addFuzzyRule(fuzzyRule7);
 
   // REGRA 8 - ALTURA MEDIO E PESO BAIXO = LED "BAIXO"
@@ -155,9 +155,9 @@ void setup(){
   // REGRA 9 - ALTURA BAIXO E PESO BAIXO = LED "BAIXO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_baixo = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_baixo->joinWithAND(alturaBaixo, pesoBaixo);
-  FuzzyRuleConsequent *led_baixo = new FuzzyRuleConsequent();
-  led_baixo->addOutput(ledBaixo);
-  FuzzyRule *fuzzyRule9 = new FuzzyRule(9, altura_baixoAndpeso_baixo, led_baixo);
+  FuzzyRuleConsequent *led_baixo2 = new FuzzyRuleConsequent();
+  led_baixo2->addOutput(ledBaixo);
+  FuzzyRule *fuzzyRule9 = new FuzzyRule(9, altura_baixoAndpeso_baixo, led_baixo2);
   fuzzy->addFuzzyRule(fuzzyRule9);
 
   // inicia a instancia 'escala'
