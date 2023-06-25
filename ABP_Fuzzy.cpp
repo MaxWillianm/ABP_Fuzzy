@@ -38,6 +38,22 @@ FuzzySet *ledAlto = new FuzzySet(3, 4, 5, 5);
 
 void setup()
 {
+
+  // define o pinMode de cada led
+
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+
+  // desliga os led caso iniciem ligados
+  digitalWrite(2, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+
   // liga o serial
   Serial.begin(9600);
   // Set a random seed
@@ -177,6 +193,33 @@ void loop()
   Serial.print("LED: ");
   Serial.println(outputLED);
 
+  if(outputLED < 1){
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+    digitalWrite(5, HIGH);
+    digitalWrite(6, HIGH);
+  }else if(outputLED > 1 && outputLED < 2){
+    digitalWrite(2, LOW);
+  }else if(outputLED > 2 && outputLED < 3){
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+  }else if(outputLED > 3 && outputLED < 4){
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+  }else if(outputLED > 4 && outputLED < 5) {
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+  }else if(outputLED > 5){
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+  }
   // wait 1 seconds
   delay(1000);
 }
