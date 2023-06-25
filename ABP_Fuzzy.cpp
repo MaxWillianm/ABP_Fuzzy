@@ -1,5 +1,21 @@
 #include <Fuzzy.h>
+#include <NewPing.h>
+#include "HX711.h"
 
+// Define os pinos para o sensor ultrassônico e a distância máxima para medir (em centímetros)
+#define TRIGGER_PIN  24
+#define ECHO_PIN     26
+#define MAX_DISTANCE 200
+
+// Define os pinos para o sensor da balança
+#define SCK A0
+#define DT A1
+
+// cria uma instancia da biblioteca HX711 na variavel escala para o sensor da balança
+HX711 escala;
+
+// Cria uma instância do objeto NewPing para o ultrassonico
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 // Fuzzy
 Fuzzy *fuzzy = new Fuzzy();
@@ -22,12 +38,10 @@ FuzzySet *ledAlto = new FuzzySet(3, 4, 5, 5);
 
 void setup()
 {
-  // Set the Serial output
+  // liga o serial
   Serial.begin(9600);
   // Set a random seed
   randomSeed(analogRead(0));
-
-  // Every setup must occur in the function setup()
 
   // FuzzyInput
   FuzzyInput *altura = new FuzzyInput(1);
@@ -78,13 +92,45 @@ void setup()
   led_baixo->addOutput(ledBaixo);
   FuzzyRule *fuzzyRule2 = new FuzzyRule(2, altura_medioAndpeso_baixo, led_baixo);
   fuzzy->addFuzzyRule(fuzzyRule2);
+
+
+
+  // inicia a instancia 'escala'
+  escala.begin (DT, SCK);
+  // começa a leitura e calculos para iniciar a pesagem
+  Serial.print("Leitura do Valor ADC:  ");
+  Serial.println(escala.read());   // Aguarda até o dispositivo estar pronto
+  Serial.println("Nao coloque nada na balanca!");
+  Serial.println("Iniciando...");
+  escala.set_scale(765991.129);     // Substituir o valor encontrado para escala
+  escala.tare(20);                // O peso é chamado de Tare.
+  Serial.println("Insira o item para Pesar");
+
 }
 
 void loop()
 {
+
+
+  // SENSOR ULTRASSONICO
+  // Faz uma leitura da distância em centímetros
+  unsigned int distance = sonar.ping_cm();
+  // Faz o calculo da altura do objeto na plataforma de medição
+  int distancia = 10 - distance;
+
+  // VARIAVEL "DISTANCIA" GUARDA O VALOR DA ALTURA DO OBJETO NA PLATAFORMA
+  // Serial.print("Altura: ");
+  // Serial.print(distancia);
+  // Serial.println("cm");
+
+  // SENSOR DA BALANÇA
+  // Serial.print("Peso: ");
+  // Serial.println(escala.get_units(20), 3);
+
+
   // get random entrances
-  int inputAltura = random(0, 10);
-  float inputPeso = random(32767) / 32767.0;
+  int inputAltura = distancia;
+  float inputPeso = escala.get_units(20);
 
 
   Serial.println("____________________________________________________________\n");
@@ -93,7 +139,7 @@ void loop()
   Serial.print(inputAltura);
 
   Serial.print(", Peso: ");
-  Serial.println(inputPeso);
+  Serial.println(inputPeso, 3);
   Serial.println();
 
   fuzzy->setInput(1, inputAltura);
