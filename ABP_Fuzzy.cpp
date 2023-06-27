@@ -21,19 +21,19 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 Fuzzy *fuzzy = new Fuzzy();
 
 // FuzzyInput
-FuzzySet *alturaBaixo = new FuzzySet(0, 2, 2, 4);
-FuzzySet *alturaMedio = new FuzzySet(3, 5, 5, 7);
-FuzzySet *alturaAlto = new FuzzySet(6, 8, 8, 10);
+FuzzySet *alturaBaixo = new FuzzySet(0, 0, 2, 4);
+FuzzySet *alturaMedio = new FuzzySet(3, 4, 6, 7);
+FuzzySet *alturaAlto = new FuzzySet(6, 8, 10, 10);
 
 // FuzzyInput
-FuzzySet *pesoBaixo = new FuzzySet(0, 0.2, 0.2, 0.4);
-FuzzySet *pesoMedio = new FuzzySet(0.3, 0.5, 0.5, 0.7);
-FuzzySet *pesoAlto = new FuzzySet(0.6, 0.8, 0.8, 1);
+FuzzySet *pesoBaixo = new FuzzySet(0, 0, 0.2, 0.4);
+FuzzySet *pesoMedio = new FuzzySet(0.3, 0.4, 0.6, 0.7);
+FuzzySet *pesoAlto = new FuzzySet(0.6, 0.8, 1, 1);
 
 // FuzzyOutput
-FuzzySet *ledBaixo = new FuzzySet(0, 0, 0.5, 1);
-FuzzySet *ledMedio = new FuzzySet(0.5, 1, 3, 4);
-FuzzySet *ledAlto = new FuzzySet(3, 4, 5, 5);
+FuzzySet *ledBaixo = new FuzzySet(0, 0, 0, 1);
+FuzzySet *ledMedio = new FuzzySet(1, 2, 3, 4);
+FuzzySet *ledAlto = new FuzzySet(4, 5, 5, 5);
 
 
 void setup(){
@@ -104,7 +104,7 @@ void setup(){
   FuzzyRule *fuzzyRule2 = new FuzzyRule(2, altura_medioAndpeso_alto, led_alto2);
   fuzzy->addFuzzyRule(fuzzyRule2);
 
-  // REGRA 3 - ALTURA MEDIO E PESO ALTO = LED "ALTO"
+  // REGRA 3 - ALTURA ALTO E PESO ALTO = LED "ALTO"
   FuzzyRuleAntecedent *altura_altoAndpeso_medio = new FuzzyRuleAntecedent();
   altura_altoAndpeso_medio->joinWithAND(alturaAlto, pesoMedio);
   FuzzyRuleConsequent *led_alto3 = new FuzzyRuleConsequent();
@@ -112,7 +112,7 @@ void setup(){
   FuzzyRule *fuzzyRule3 = new FuzzyRule(3, altura_altoAndpeso_medio, led_alto3);
   fuzzy->addFuzzyRule(fuzzyRule3);
 
-  // REGRA 4 - ALTURA MEDIO E PESO ALTO = LED "ALTO"
+  // REGRA 4 - ALTURA BAIXO E PESO ALTO = LED "ALTO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_alto = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_alto->joinWithAND(alturaBaixo, pesoAlto);
   FuzzyRuleConsequent *led_alto4 = new FuzzyRuleConsequent();
@@ -247,32 +247,32 @@ void loop(){
     digitalWrite(4, HIGH);
     digitalWrite(5, HIGH);
     digitalWrite(6, HIGH);
-    Serial.print("Valor da taxa: R$0,00");
-  }else if(outputLED > 1 && outputLED < 2){
+    Serial.println("Valor da taxa: R$0,00");
+  }else if(outputLED >= 1 && outputLED < 2){
     digitalWrite(2, LOW);
-    Serial.print("Valor da taxa: R$60,00");
-  }else if(outputLED > 2 && outputLED < 3){
+    Serial.println("Valor da taxa: R$60,00");
+  }else if(outputLED >= 2 && outputLED < 3){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
-    Serial.print("Valor da taxa: R$120,00");
-  }else if(outputLED > 3 && outputLED < 4){
+    Serial.println("Valor da taxa: R$120,00");
+  }else if(outputLED >= 3 && outputLED < 4){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
-    Serial.print("Valor da taxa: R$240,00");
-  }else if(outputLED > 4 && outputLED < 5) {
+    Serial.println("Valor da taxa: R$240,00");
+  }else if(outputLED >= 4 && outputLED < 4.5) {
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
     digitalWrite(5, LOW);
-    Serial.print("Valor da taxa: R$480,00");
-  }else if(outputLED > 5){
+    Serial.println("Valor da taxa: R$480,00");
+  }else if(outputLED >= 4.5){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
     digitalWrite(5, LOW);
     digitalWrite(6, LOW);
-    Serial.print("Valor da taxa: R$960,00");
+    Serial.println("Valor da taxa: R$960,00");
   }
   // espera 1 segundo
   delay(1000);
