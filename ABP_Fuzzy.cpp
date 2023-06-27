@@ -20,15 +20,15 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 // Fuzzy
 Fuzzy *fuzzy = new Fuzzy();
 
-// FuzzyInput funções de pertinencia
-FuzzySet *alturaBaixo = new FuzzySet(0, 3.33, 3.33, 6.66);
-FuzzySet *alturaMedio = new FuzzySet(3.33, 6.66, 6.66, 10);
-FuzzySet *alturaAlto = new FuzzySet(6.66, 10, 10, 10);
+// FuzzyInput
+FuzzySet *alturaBaixo = new FuzzySet(0, 2, 2, 4);
+FuzzySet *alturaMedio = new FuzzySet(3, 5, 5, 7);
+FuzzySet *alturaAlto = new FuzzySet(6, 8, 8, 10);
 
-// FuzzyInput funções de pertinencia
-FuzzySet *pesoBaixo = new FuzzySet(0, 0.33, 0.33, 0.66);
-FuzzySet *pesoMedio = new FuzzySet(0.33, 0.66, 0.66, 1);
-FuzzySet *pesoAlto = new FuzzySet(0.66, 1, 1, 1);
+// FuzzyInput
+FuzzySet *pesoBaixo = new FuzzySet(0, 0.2, 0.2, 0.4);
+FuzzySet *pesoMedio = new FuzzySet(0.3, 0.5, 0.5, 0.7);
+FuzzySet *pesoAlto = new FuzzySet(0.6, 0.8, 0.8, 1);
 
 // FuzzyOutput
 FuzzySet *ledBaixo = new FuzzySet(0, 0, 0.5, 1);
@@ -119,7 +119,7 @@ void setup(){
   led_alto4->addOutput(ledAlto);
   FuzzyRule *fuzzyRule4 = new FuzzyRule(4, altura_baixoAndpeso_alto, led_alto4);
   fuzzy->addFuzzyRule(fuzzyRule4);
- 
+
   // REGRA 5 - ALTURA MEDIO E PESO MEDIO = LED "MEDIO"
   FuzzyRuleAntecedent *altura_medioAndpeso_medio = new FuzzyRuleAntecedent();
   altura_medioAndpeso_medio->joinWithAND(alturaMedio, pesoMedio);
@@ -127,7 +127,7 @@ void setup(){
   led_medio->addOutput(ledMedio);
   FuzzyRule *fuzzyRule5 = new FuzzyRule(5, altura_medioAndpeso_medio, led_medio);
   fuzzy->addFuzzyRule(fuzzyRule5);
-  
+
   // REGRA 6 - ALTURA BAIXO E PESO MEDIO = LED "MEDIO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_medio = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_medio->joinWithAND(alturaBaixo, pesoMedio);
@@ -135,7 +135,7 @@ void setup(){
   led_medio2->addOutput(ledMedio);
   FuzzyRule *fuzzyRule6 = new FuzzyRule(6, altura_baixoAndpeso_medio, led_medio2);
   fuzzy->addFuzzyRule(fuzzyRule6);
-  
+
   // REGRA 7 - ALTURA ALTO E PESO BAIXO = LED "MEDIO"
   FuzzyRuleAntecedent *altura_altoAndpeso_baixo = new FuzzyRuleAntecedent();
   altura_altoAndpeso_baixo->joinWithAND(alturaAlto, pesoBaixo);
@@ -151,7 +151,7 @@ void setup(){
   led_baixo->addOutput(ledBaixo);
   FuzzyRule *fuzzyRule8 = new FuzzyRule(8, altura_medioAndpeso_baixo, led_baixo);
   fuzzy->addFuzzyRule(fuzzyRule8);
-  
+
   // REGRA 9 - ALTURA BAIXO E PESO BAIXO = LED "BAIXO"
   FuzzyRuleAntecedent *altura_baixoAndpeso_baixo = new FuzzyRuleAntecedent();
   altura_baixoAndpeso_baixo->joinWithAND(alturaBaixo, pesoBaixo);
@@ -247,27 +247,33 @@ void loop(){
     digitalWrite(4, HIGH);
     digitalWrite(5, HIGH);
     digitalWrite(6, HIGH);
+    Serial.print("Valor da taxa: R$0,00");
   }else if(outputLED > 1 && outputLED < 2){
     digitalWrite(2, LOW);
+    Serial.print("Valor da taxa: R$60,00");
   }else if(outputLED > 2 && outputLED < 3){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
+    Serial.print("Valor da taxa: R$120,00");
   }else if(outputLED > 3 && outputLED < 4){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
+    Serial.print("Valor da taxa: R$240,00");
   }else if(outputLED > 4 && outputLED < 5) {
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
     digitalWrite(5, LOW);
+    Serial.print("Valor da taxa: R$480,00");
   }else if(outputLED > 5){
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
     digitalWrite(4, LOW);
     digitalWrite(5, LOW);
     digitalWrite(6, LOW);
+    Serial.print("Valor da taxa: R$960,00");
   }
-  // wait 1 seconds
+  // espera 1 segundo
   delay(1000);
 }
